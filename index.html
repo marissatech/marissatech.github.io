@@ -1,10 +1,321 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marissa Tech</title>
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --border: #e6e6e6;
+      --soft: #f7f7f7;
+      --accent: #d72cf0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: 100vh;
+    }
+
+    aside {
+      border-right: 1px solid var(--border);
+      padding: 28px 22px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      background: #fff;
+    }
+
+    .logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .name {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .tagline {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 4px 0 28px;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    nav a {
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: var(--muted);
+    }
+
+    nav a:hover {
+      background: var(--soft);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    main {
+      padding: 48px;
+      max-width: 900px;
+    }
+
+    header {
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      font-size: 36px;
+      line-height: 1.2;
+      margin: 0 0 12px;
+      letter-spacing: -0.03em;
+    }
+
+    .intro {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 680px;
+      margin: 0;
+    }
+
+    .box {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 22px;
+      background: #fff;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 0 0 14px;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .project {
+      padding: 16px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .project:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .project-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .project-links {
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .project-links a {
+      color: var(--accent);
+      margin-right: 12px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 14px;
+      color: var(--muted);
+      background: var(--soft);
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 34px;
+    }
+
+    @media (max-width: 760px) {
+      .layout {
+        display: block;
+      }
+
+      aside {
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      main {
+        padding: 28px 20px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Hi, I'm Marissa</h1>
-  <p>Welcome to my personal homepage.</p>
+  <div class="layout">
+    <aside>
+      <img src="profile.png" alt="Marissa Tech logo" class="logo" />
+
+      <p class="name">Marissa Tech</p>
+      <p class="tagline">Developer portfolio</p>
+
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+        <a href="https://github.com/marissatech">GitHub</a>
+      </nav>
+    </aside>
+
+    <main>
+      <header>
+        <h1>Hi, I’m Marissa.</h1>
+        <p class="intro">
+          I’m interested in software development, clean design, and building practical tools.
+          This page is a simple overview of my work, skills, and contact information.
+        </p>
+      </header>
+
+      <section id="about" class="box">
+        <h2>About</h2>
+        <p>
+          I enjoy working on technology projects that are simple, useful, and well-organized.
+          I’m currently building my skills in programming, web development, and technical problem solving.
+        </p>
+        <p class="muted">
+          I care about readable code, clear communication, and learning by building real projects.
+        </p>
+      </section>
+
+      <section id="projects" class="box">
+        <h2>Projects</h2>
+
+        <div class="project">
+          <div class="project-title">Personal Homepage</div>
+          <p class="muted">
+            A minimalist GitHub Pages site built with plain HTML and CSS.
+          </p>
+          <div class="project-links">
+            <a href="#">Live</a>
+            <a href="#">Code</a>
+          </div>
+        </div>
+
+        <div class="project">
+          <div class="project-title">Project Name</div>
+          <p class="muted">
+            Short description of what the project does, what you used, and why it matters.
+          </p>
+          <div class="project-links">
+            <a href="#">Live</a>
+            <a href="#">Code</a>
+          </div>
+        </div>
+
+        <div class="project">
+          <div class="project-title">Project Name</div>
+          <p class="muted">
+            Another project description. Keep this section short and easy for employers to scan.
+          </p>
+          <div class="project-links">
+            <a href="#">Live</a>
+            <a href="#">Code</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="box">
+        <h2>Skills</h2>
+        <div class="skills">
+          <span class="skill">HTML</span>
+          <span class="skill">CSS</span>
+          <span class="skill">JavaScript</span>
+          <span class="skill">GitHub</span>
+          <span class="skill">Problem Solving</span>
+          <span class="skill">Documentation</span>
+        </div>
+      </section>
+
+      <section id="contact" class="box">
+        <h2>Contact</h2>
+        <p>
+          Email:
+          <a href="mailto:marissa.t.contact@gmail.com">marissa.t.contact@gmail.com</a>
+        </p>
+        <p>
+          GitHub:
+          <a href="https://github.com/marissatech">github.com/marissatech</a>
+        </p>
+      </section>
+
+      <footer>
+        Built with HTML and CSS. Hosted on GitHub Pages.
+      </footer>
+    </main>
+  </div>
 </body>
 </html>
