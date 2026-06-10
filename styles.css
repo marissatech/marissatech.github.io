@@ -1,23 +1,43 @@
+/* ============================================================
+   Marissa Tech — portfolio
+   Direction: the pixelated X mark is the brand. Everything
+   follows from it: sharp corners, a mono utility face, pixel
+   "stair" markers, and one magenta→violet gradient used
+   sparingly. Quiet white page, loud only where it counts.
+   ============================================================ */
+
 :root {
   --bg: #ffffff;
-  --text: #111111;
-  --muted: #666666;
-  --border: #e8e8e8;
-  --soft: #f7f7f7;
-  --accent: #d72cf0;
-  --accent-2: #7b2cf0;
+  --ink: #131316;
+  --muted: #6c6c74;
+  --border: #e9e8ee;
+  --soft: #f8f7fb;            /* faint violet-tinted surface */
+  --accent: #d72cf0;          /* magenta from the mark */
+  --accent-2: #7b2cf0;        /* violet from the mark */
+  --grad: linear-gradient(135deg, var(--accent), var(--accent-2));
+  --mono: "JetBrains Mono", "Courier New", monospace;
+  --sans: "Schibsted Grotesk", Helvetica, Arial, sans-serif;
+  --px: 7px;                  /* base pixel unit for the stair motif */
 }
 
-* {
-  box-sizing: border-box;
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  font-family: "Schibsted Grotesk", Helvetica, sans-serif;
+  font-family: var(--sans);
   background: var(--bg);
-  color: var(--text);
-  line-height: 1.5;
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
 }
 
 a {
@@ -25,116 +45,138 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
+a:hover { text-decoration: underline; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
+
+/* ---------- layout ---------- */
 
 .layout {
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 248px 1fr;
   min-height: 100vh;
 }
+
+main {
+  width: min(880px, 100%);
+  padding: 56px 48px 40px;
+}
+
+section {
+  scroll-margin-top: 24px;
+}
+
+/* ---------- sidebar ---------- */
 
 aside {
   position: sticky;
   top: 0;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
-  padding: 28px 22px;
+  padding: 30px 24px;
   border-right: 1px solid var(--border);
   background: #fff;
 }
 
 .logo {
-  width: 56px;
-  height: 56px;
-  border-radius: 0px;
-  object-fit: cover;
+  width: 52px;
+  height: 52px;
   display: block;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
+  image-rendering: pixelated;   /* keep the mark crisp at any size */
 }
 
 .name {
   margin: 0;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
 .tagline {
-  margin: 4px 0 28px;
+  margin: 3px 0 30px;
   color: var(--muted);
-  font-size: 14px;
+  font-family: var(--mono);
+  font-size: 12px;
 }
 
 nav {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  font-size: 14px;
+  gap: 2px;
+  font-family: var(--mono);
+  font-size: 13px;
 }
 
 nav a {
-  padding: 8px 10px;
-  border-radius: 0px;
+  position: relative;
+  padding: 7px 10px 7px 22px;
   color: var(--muted);
-  font-family: "JetBrains Mono", "Courier New", monospace;
 }
 
-nav a:hover {
-  background: var(--soft);
-  color: var(--text);
+/* pixel square that steps in on hover — the mark, miniaturized */
+nav a::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  background: var(--grad);
+  opacity: 0;
+  transform: translate(-4px, -50%);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  color: var(--ink);
   text-decoration: none;
+  background: var(--soft);
 }
 
-main {
-  width: min(900px, 100%);
-  padding: 48px;
+nav a:hover::before,
+nav a:focus-visible::before {
+  opacity: 1;
+  transform: translate(0, -50%);
 }
+
+/* pixel stair tucked at the bottom of the sidebar */
+aside::after {
+  content: "";
+  display: block;
+  margin-top: auto;
+  width: var(--px);
+  height: var(--px);
+  background: var(--accent);
+  box-shadow:
+    var(--px) calc(-1 * var(--px)) 0 var(--accent),
+    calc(2 * var(--px)) calc(-2 * var(--px)) 0 var(--accent-2);
+}
+
+/* ---------- header / hero ---------- */
 
 header {
-  margin-bottom: 24px;
-}
-
-h1 {
-  margin: 0 0 8px;
-  font-size: clamp(30px, 5vw, 36px);
-
-  letter-spacing: -0.03em;
-}
-
-h2 {
-  margin: 0 0 12px;
-  font-size: 18px;
-  letter-spacing: -0.02em;
-}
-
-p {
-  margin: 0 0 10px;
-}
-
-p:last-child {
-  margin-bottom: 0;
-}
-
-.intro {
-  max-width: 650px;
-  color: var(--muted);
-  font-size: 16px;
+  margin-bottom: 40px;
 }
 
 .identity {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-  padding: 4px 12px 4px 4px;
-  border-radius: 0px;
+  gap: 9px;
+  margin-bottom: 14px;
+  padding: 5px 12px 5px 6px;
+  border: 1px solid var(--border);
 }
 
 .identity-dot {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  width: 18px;
+  height: 18px;
+  background: var(--grad);
 }
 
 .identity-name {
@@ -146,20 +188,83 @@ p:last-child {
   padding-left: 9px;
   border-left: 1px solid var(--border);
   color: var(--muted);
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: 12px;
 }
+
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(34px, 5.5vw, 48px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+/* the one loud moment: her name in the brand gradient */
+h1 .grad {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.intro {
+  max-width: 600px;
+  color: var(--muted);
+  font-size: 17px;
+}
+
+/* ---------- sections ---------- */
 
 .box {
-  margin-bottom: 16px;
-  padding: 16px;
-  border: 1px solid var(--border);
-  border-radius: 0px;
-  background: #fff;
+  margin-bottom: 36px;
+  padding: 24px 0 0;
+  border: none;
+  border-top: 1px solid var(--border);
 }
 
-.muted {
-  color: var(--muted);
+/* section titles become mono eyebrows with a pixel-stair marker */
+h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
 }
+
+h2::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-bottom: 8px;
+  background: var(--accent);
+  box-shadow:
+    6px 6px 0 var(--accent-2),
+    0 6px 0 transparent;
+}
+
+p { margin: 0 0 10px; }
+p:last-child { margin-bottom: 0; }
+
+.muted { color: var(--muted); }
+
+#about p,
+#contact p {
+  max-width: 640px;
+}
+
+#contact a {
+  color: var(--accent-2);
+  font-weight: 600;
+}
+
+/* ---------- project bars ---------- */
 
 .project-list {
   display: grid;
@@ -167,37 +272,56 @@ p:last-child {
 }
 
 .project-bar {
+  position: relative;
   display: grid;
   grid-template-columns: 46px 1fr auto;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
-  padding: 12px;
+  padding: 14px 16px;
   border: 1px solid var(--border);
-  border-radius: 0px;
   background: #fff;
   cursor: pointer;
-  transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+  transition: border-color 140ms ease, background 140ms ease;
+}
+
+/* pixel accent edge that switches on with the hover, no sliding blur */
+.project-bar::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  bottom: -1px;
+  width: 3px;
+  background: var(--grad);
+  opacity: 0;
+  transition: opacity 140ms ease;
 }
 
 .project-bar:hover,
 .project-bar:focus-visible {
   background: var(--soft);
-  border-color: #d9d9d9;
-  transform: translateY(-1px);
+  border-color: #d8d3e6;
   outline: none;
+}
+
+.project-bar:hover::before,
+.project-bar:focus-visible::before {
+  opacity: 1;
 }
 
 .project-icon {
   width: 46px;
   height: 46px;
   border: 1px solid var(--border);
-  border-radius: 0px;
   object-fit: cover;
   background: var(--soft);
+  image-rendering: pixelated;
 }
 
 .project-title {
   font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -0.01em;
   line-height: 1.2;
 }
 
@@ -210,27 +334,41 @@ p:last-child {
 .project-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 6px;
-  font-size: 13px;
+  gap: 6px;
+  margin-top: 8px;
 }
 
 .project-links a {
-  color: var(--accent);
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--accent-2);
+  font-family: var(--mono);
+  font-size: 11.5px;
   font-weight: 600;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+
+.project-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  text-decoration: none;
 }
 
 .project-open {
   color: var(--muted);
-  font-size: 18px;
+  font-family: var(--mono);
+  font-size: 16px;
   transition: transform 140ms ease, color 140ms ease;
 }
 
 .project-bar:hover .project-open,
 .project-bar:focus-visible .project-open {
   color: var(--accent);
-  transform: translateX(2px);
+  transform: translateX(3px);
 }
+
+/* ---------- skills ---------- */
 
 .skills {
   display: flex;
@@ -238,25 +376,31 @@ p:last-child {
   gap: 7px;
 }
 
+/* square chips, not pills — pixels don't have round corners */
 .skill {
-  padding: 5px 9px;
+  padding: 5px 10px;
   border: 1px solid var(--border);
-  border-radius: 999px;
   background: var(--soft);
-  color: var(--muted);
-  font-size: 13px;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
 }
+
+/* ---------- footer ---------- */
 
 footer {
-  margin-top: 28px;
+  margin-top: 44px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
   color: var(--muted);
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: 12px;
 }
 
+/* ---------- responsive ---------- */
+
 @media (max-width: 760px) {
-  .layout {
-    display: block;
-  }
+  .layout { display: block; }
 
   aside {
     position: static;
@@ -265,18 +409,23 @@ footer {
     border-bottom: 1px solid var(--border);
   }
 
+  aside::after { display: none; }
+
   nav {
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 2px;
   }
 
-  main {
-    padding: 28px 20px;
-  }
+  nav a { padding: 6px 9px 6px 20px; }
+
+  main { padding: 30px 20px; }
+
+  h1 { font-size: clamp(30px, 9vw, 38px); }
 
   .project-bar {
     grid-template-columns: 42px 1fr auto;
-    padding: 10px;
+    padding: 12px;
   }
 
   .project-icon {
@@ -285,19 +434,14 @@ footer {
   }
 }
 
-aside {
-  background: linear-gradient(180deg, #ffffff 0%, #f4f4f5 100%);
-}
+/* ---------- accessibility ---------- */
 
-.box,
-.project-bar,
-.project-icon {
-  border-color: #f0f0f0;
-}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 
-.box {
-  background: #ffffff;
-}
-.project-bar {
-  background: linear-gradient(180deg, #ffffff 0%, #f4f4f5 100%);
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
 }
